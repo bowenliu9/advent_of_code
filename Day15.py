@@ -1,51 +1,32 @@
-def find_multiple(num1, num2, diff, start = 0):
-    temp1 = start+num1
-    temp2 = 0
-    while True:
-        if temp1 >= temp2:
-            temp2+= num2
-        elif temp2-temp1 != diff:
-            temp1+=num1
-        else:
-            #print(temp1, temp2)
-            break
-    return temp1
+# Day 15
+# Part 1
+def last_occurance(spoken, number):
+	for index in range(len(spoken)-2,-1,-1):
+		# count backwards from second last to find the previous occurance
+		if spoken[index] == number:
+			return index 
 
-# turn data into two lists
-# one with all the time intervals
-# one with all th departure time difference
-original = [17,"x",13,19]
-departure_interval = []
-time_interval = []
-t = 0
-for item in original:
-    if item == "x":
-        t+= 1
-    else:
-        time_interval.append(item)
-        departure_interval.append(t)
-        t+=1
-print(time_interval, departure_interval)
+a = [2,15,0,9,1,20]
+spoken = []
+counter = 0
+prev = 0
 
-# use two lists to find when condition is met
-a = [17,13,19]
-b = [2,3]
-start1 = 0
-start2 = 0
+while counter < 2020:
+	if counter < len(a):
+		# read out the given list first and store it in spoken
+		spoken.append(a[counter])
+		prev = a[counter]
+	elif prev not in spoken[0:-1]:
+		# check if it's the first time the number is said
+		spoken.append(0)
+		prev = 0
+	else:
+		# if it's been spoken, find the index last time prev was spoken
+		num = counter - 1 - last_occurance(spoken,prev)
+		spoken.append(num)
+		prev = num
+	counter += 1
 
-first_pair = find_multiple(7,13,1,1068774)
-second_pair = find_multiple(7,59,4,1068774)
-print(first_pair, second_pair)
-'''
-while first_pair != second_pair:
-    if first_pair > second_pair:
-        start2 = first_pair
-        start1 = first_pair
-    else:
-        start1 = second_pair
-        start2 = second_pair
-    first_pair = find_multiple(17,13,2,start1)
-    second_pair = find_multiple(17,19,3,start2)
-    #print(first_pair, second_pair)
-'''
-    
+print(spoken[-1])
+
+# Part 2
