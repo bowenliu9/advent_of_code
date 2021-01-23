@@ -1,5 +1,7 @@
 # Day 15
 # Part 1
+import time
+
 def last_occurance(spoken, number):
 	for index in range(len(spoken)-2,-1,-1):
 		# count backwards from second last to find the previous occurance
@@ -30,9 +32,9 @@ def turns(a,iteration):
 	print(spoken[-1])
 	return spoken[-1]
 
-a = [0,3,6]
+a = [2,15,0,9,1,20]
 turns(a,2020)
+
+''' Part 2
 turns(a,30000000)
-
-
-# Part 2
+'''
